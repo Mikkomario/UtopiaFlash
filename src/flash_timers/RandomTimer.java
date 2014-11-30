@@ -1,4 +1,4 @@
-package timers;
+package flash_timers;
 
 import genesis_event.ActorHandler;
 
