@@ -1,6 +1,6 @@
 package timers;
 
-import genesis_logic.ActorHandler;
+import genesis_event.ActorHandler;
 
 /**
  * SingularTimer is a timer that causes only a single TimerEvent and then dies.
@@ -24,10 +24,10 @@ public class SingularTimer extends AbstractTimer
 	 * @param actorhandler The actorhandler that will inform the object about 
 	 * steps
 	 */
-	public SingularTimer(TimerEventListener user, int delay, int id, 
-			ActorHandler actorhandler)
+	public SingularTimer(int delay, int id, 
+			ActorHandler actorhandler, TimerEventListener user)
 	{
-		super(user, delay, id, actorhandler);
+		super(delay, id, actorhandler, user);
 	}
 	
 	
@@ -37,6 +37,6 @@ public class SingularTimer extends AbstractTimer
 	public void onTimerEvent()
 	{
 		// SingularTimer can only be used once
-		kill();
+		getIsDeadStateOperator().setState(true);
 	}
 }

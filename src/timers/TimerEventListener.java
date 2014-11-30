@@ -1,6 +1,6 @@
 package timers;
 
-import genesis_logic.LogicalHandled;
+import genesis_event.Handled;
 
 /**
  * TimerEventListeners react to events caused by timers. They often create 
@@ -9,7 +9,7 @@ import genesis_logic.LogicalHandled;
  * @author Mikko Hilpinen.
  * @since 30.11.2013.
  */
-public interface TimerEventListener extends LogicalHandled
+public interface TimerEventListener extends Handled
 {
 	/**
 	 * This method is called by a Timer at certain periods.

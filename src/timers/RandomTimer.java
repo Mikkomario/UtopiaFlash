@@ -1,6 +1,6 @@
 package timers;
 
-import genesis_logic.ActorHandler;
+import genesis_event.ActorHandler;
 
 import java.util.Random;
 
@@ -26,7 +26,7 @@ public class RandomTimer extends AbstractTimer
 	 * Creates a new RandomTimer that will start to inform the user about timer 
 	 * events at intervals randomized between the given values.
 	 *
-	 * @param user The timer listener that will be informed about the events
+	 * @param user The timer listener that will be informed about the events (optional)
 	 * @param mindelay How long is the shortest possible delay before an event 
 	 * is thrown (in steps)
 	 * @param maxdelay How long is the longest possible delay before an event 
@@ -37,10 +37,10 @@ public class RandomTimer extends AbstractTimer
 	 * @param actorhandler The actorhandler that will inform the timer about 
 	 * steps
 	 */
-	public RandomTimer(TimerEventListener user, int mindelay, int maxdelay, 
-			int id, ActorHandler actorhandler)
+	public RandomTimer(int mindelay, int maxdelay, 
+			int id, ActorHandler actorhandler, TimerEventListener user)
 	{
-		super(user, 100, id, actorhandler);
+		super(100, id, actorhandler, user);
 
 		// Initializes attributes
 		this.rand = new Random();
@@ -50,6 +50,9 @@ public class RandomTimer extends AbstractTimer
 		// Randomizes the delay
 		setDelay(getRandomDelay());
 	}
+	
+	
+	// IMPLEMENTED METHODS	---------------------
 
 	@Override
 	public void onTimerEvent()

@@ -1,6 +1,6 @@
 package timers;
 
-import genesis_logic.ActorHandler;
+import genesis_event.ActorHandler;
 
 /**
  * ContinuousTimer will inform the user about timer events constantly after 
@@ -22,7 +22,7 @@ public class ContinuousTimer extends AbstractTimer
 	 * Creates a new timer that will start to inform the user at given intervals
 	 *
 	 * @param user The timer listener that will be informed about the timer 
-	 * events
+	 * events (optional)
 	 * @param interval How many steps there are between each timer event
 	 * @param actorhandler The actorhandler that will inform the timer about 
 	 * steps (optional)
@@ -30,10 +30,10 @@ public class ContinuousTimer extends AbstractTimer
 	 * thrown event. The user can differentiate events caused by this 
 	 * particular timer using this id.
 	 */
-	public ContinuousTimer(TimerEventListener user, int interval, int id, 
-			ActorHandler actorhandler)
+	public ContinuousTimer(int interval, int id, 
+			ActorHandler actorhandler, TimerEventListener user)
 	{
-		super(user, interval, id, actorhandler);
+		super(interval, id, actorhandler, user);
 		
 		// Initializes attributes
 		this.interval = interval;
