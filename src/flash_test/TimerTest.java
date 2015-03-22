@@ -6,9 +6,8 @@ import flash_timers.SingularTimer;
 import flash_timers.TimerEventListener;
 import genesis_event.ActorHandler;
 import genesis_util.StateOperator;
-import genesis_util.Vector2D;
+import genesis_util.Vector3D;
 import genesis_video.GameWindow;
-import genesis_video.MainPanel.ScreenSplit;
 
 /**
  * TimerTest tests the timers
@@ -54,8 +53,7 @@ public class TimerTest implements TimerEventListener
 	 */
 	public static void main(String[] args)
 	{
-		GameWindow window = new GameWindow(new Vector2D(100, 100), "Test", true, 120, 20, 
-				ScreenSplit.HORIZONTAL, false);
+		GameWindow window = new GameWindow(new Vector3D(100, 100), "Test", true, 120, 20);
 		ActorHandler actorHandler = new ActorHandler(true, window.getHandlerRelay());
 		TimerTest test = new TimerTest();
 		new ContinuousTimer(100, 1, actorHandler, test);
