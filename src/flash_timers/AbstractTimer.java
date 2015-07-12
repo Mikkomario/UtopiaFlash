@@ -1,8 +1,8 @@
 package flash_timers;
 
+import omega_util.SimpleGameObject;
 import genesis_event.Actor;
-import genesis_event.ActorHandler;
-import genesis_util.LatchStateOperator;
+import genesis_event.HandlerRelay;
 import genesis_util.StateOperator;
 import genesis_util.StateOperatorListener;
 
@@ -11,47 +11,38 @@ import genesis_util.StateOperatorListener;
  * may inform the object differently. once or repeatedly, for example.
  *
  * @author Mikko Hilpinen.
- * @since 30.11.2013.
+ * @since 30.11.2013
  */
-public abstract class AbstractTimer implements Actor, StateOperatorListener
+public abstract class AbstractTimer extends SimpleGameObject implements Actor, 
+		StateOperatorListener
 {
 	// ATTRIBUTES	-----------------------------------------------------
 	
 	private TimerEventListenerHandler listenerHandler;
 	private double timeleft;
-	private StateOperator isDeadOperator, activeStateOperator;
 	private int id;
 	
 	
 	// CONSTRUCTOR	-----------------------------------------------------
 	
 	/**
-	 * Creates a new timer and sets it to inform an user after delay steps.
+	 * Creates a new timer and sets it to inform the listeners after delay steps.
 	 *
-	 * @param user The listener that the timer will inform about the event(s) (optional)
 	 * @param delay The delay before the event
-	 * @param actorhandler The handler which will inform the timer about 
-	 * act-events, null if the timer will be handled manually
 	 * @param id The identifier of the timer, this will be given with the 
-	 * thrown event. The user can differentiate events caused by this 
-	 * particular timer using this id.
+	 * thrown event.
+	 * @param handlers The handlers that will handle the timer (actorHandler)
 	 */
-	public AbstractTimer(int delay, int id,
-			ActorHandler actorhandler, TimerEventListener user)
+	public AbstractTimer(int delay, int id, HandlerRelay handlers)
 	{
+		super(handlers);
+		
 		// Initializes attributes
 		this.timeleft = delay;
 		this.id = id;
 		this.listenerHandler = new TimerEventListenerHandler(false);
-		this.isDeadOperator = new LatchStateOperator(false);
-		this.activeStateOperator = new StateOperator(true, true);
 		
-		// Adds the object to the handler
-		if (actorhandler != null)
-			actorhandler.add(this);
-		this.isDeadOperator.getListenerHandler().add(this);
-		if (user != null)
-			this.listenerHandler.add(user);
+		getIsDeadStateOperator().getListenerHandler().add(this);
 	}
 	
 	
@@ -80,28 +71,16 @@ public abstract class AbstractTimer implements Actor, StateOperatorListener
 			onTimerEvent();
 		}
 	}
-	
-	@Override
-	public StateOperator getIsDeadStateOperator()
-	{
-		return this.isDeadOperator;
-	}
 
 	@Override
 	public void onStateChange(StateOperator source, boolean newState)
 	{
 		if (source == getIsDeadStateOperator() && newState)
 		{
-			// Clear listener handler first
+			// Clears listener handler and kills it
 			this.listenerHandler.removeAllHandleds();
 			this.listenerHandler.getIsDeadStateOperator().setState(true);
 		}
-	}
-
-	@Override
-	public StateOperator getIsActiveStateOperator()
-	{
-		return this.activeStateOperator;
 	}
 	
 	

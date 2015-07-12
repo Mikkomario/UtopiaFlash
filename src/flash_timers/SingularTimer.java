@@ -1,6 +1,6 @@
 package flash_timers;
 
-import genesis_event.ActorHandler;
+import genesis_event.HandlerRelay;
 
 /**
  * SingularTimer is a timer that causes only a single TimerEvent and then dies.
@@ -16,18 +16,15 @@ public class SingularTimer extends AbstractTimer
 	 * Creates a new timer that will inform the user about an timer event after 
 	 * <i>delay</i> steps.
 	 *
-	 * @param user The timer listener that will be informed about the timerevent
 	 * @param delay How many steps will pass before the event is thrown
 	 * @param id The identifier of the timer, this will be given with the 
 	 * thrown event. The user can differentiate events caused by this 
 	 * particular timer using this id.
-	 * @param actorhandler The actorhandler that will inform the object about 
-	 * steps
+	 * @param handlers The handlers that will handle the timer
 	 */
-	public SingularTimer(int delay, int id, 
-			ActorHandler actorhandler, TimerEventListener user)
+	public SingularTimer(int delay, int id, HandlerRelay handlers)
 	{
-		super(delay, id, actorhandler, user);
+		super(delay, id, handlers);
 	}
 	
 	

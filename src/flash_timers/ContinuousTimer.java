@@ -1,6 +1,6 @@
 package flash_timers;
 
-import genesis_event.ActorHandler;
+import genesis_event.HandlerRelay;
 
 /**
  * ContinuousTimer will inform the user about timer events constantly after 
@@ -21,19 +21,15 @@ public class ContinuousTimer extends AbstractTimer
 	/**
 	 * Creates a new timer that will start to inform the user at given intervals
 	 *
-	 * @param user The timer listener that will be informed about the timer 
-	 * events (optional)
 	 * @param interval How many steps there are between each timer event
-	 * @param actorhandler The actorhandler that will inform the timer about 
-	 * steps (optional)
 	 * @param id The identifier of the timer, this will be given with the 
 	 * thrown event. The user can differentiate events caused by this 
 	 * particular timer using this id.
+	 * @param handlers The handlers that will handle the timer
 	 */
-	public ContinuousTimer(int interval, int id, 
-			ActorHandler actorhandler, TimerEventListener user)
+	public ContinuousTimer(int interval, int id, HandlerRelay handlers)
 	{
-		super(interval, id, actorhandler, user);
+		super(interval, id, handlers);
 		
 		// Initializes attributes
 		this.interval = interval;

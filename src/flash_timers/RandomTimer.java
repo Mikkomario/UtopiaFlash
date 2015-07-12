@@ -1,6 +1,6 @@
 package flash_timers;
 
-import genesis_event.ActorHandler;
+import genesis_event.HandlerRelay;
 
 import java.util.Random;
 
@@ -26,7 +26,6 @@ public class RandomTimer extends AbstractTimer
 	 * Creates a new RandomTimer that will start to inform the user about timer 
 	 * events at intervals randomized between the given values.
 	 *
-	 * @param user The timer listener that will be informed about the events (optional)
 	 * @param mindelay How long is the shortest possible delay before an event 
 	 * is thrown (in steps)
 	 * @param maxdelay How long is the longest possible delay before an event 
@@ -34,13 +33,11 @@ public class RandomTimer extends AbstractTimer
 	 * @param id The identifier of the timer, this will be given with the 
 	 * thrown event. The user can differentiate events caused by this 
 	 * particular timer using this id.
-	 * @param actorhandler The actorhandler that will inform the timer about 
-	 * steps
+	 * @param handlers The handlers that will handle the timer
 	 */
-	public RandomTimer(int mindelay, int maxdelay, 
-			int id, ActorHandler actorhandler, TimerEventListener user)
+	public RandomTimer(int mindelay, int maxdelay, int id, HandlerRelay handlers)
 	{
-		super(100, id, actorhandler, user);
+		super(100, id, handlers);
 
 		// Initializes attributes
 		this.rand = new Random();
