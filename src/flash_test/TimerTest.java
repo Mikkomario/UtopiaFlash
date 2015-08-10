@@ -4,7 +4,7 @@ import flash_timers.ContinuousTimer;
 import flash_timers.RandomTimer;
 import flash_timers.SingularTimer;
 import flash_timers.TimerEventListener;
-import genesis_util.StateOperator;
+import genesis_util.SimpleHandled;
 import genesis_util.Vector3D;
 import genesis_video.GameWindow;
 
@@ -14,29 +14,19 @@ import genesis_video.GameWindow;
  * @author Mikko Hilpinen
  * @since 30.11.2014
  */
-public class TimerTest implements TimerEventListener
+public class TimerTest extends SimpleHandled implements TimerEventListener
 {
-	// ATTRIBUTES	----------------------
-	
-	private StateOperator isDeadOperator;
-	
-	
 	// CONSTRUCTOR	-----------------------
 	
 	private TimerTest()
 	{
-		// The constructor is hidden since the interface is static¨
-		this.isDeadOperator = new StateOperator(false, true);
+		super(null);
+		
+		// The constructor is hidden since the interface is static
 	}
 	
 	
 	// IMPLEMENTED METHODS	----------------
-
-	@Override
-	public StateOperator getIsDeadStateOperator()
-	{
-		return this.isDeadOperator;
-	}
 
 	@Override
 	public void onTimerEvent(int timerid)

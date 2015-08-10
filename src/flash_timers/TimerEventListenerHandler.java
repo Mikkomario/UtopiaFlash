@@ -35,7 +35,7 @@ public class TimerEventListenerHandler extends Handler<TimerEventListener> imple
 	public void onTimerEvent(int timerid)
 	{
 		this.lastTimerID = timerid;
-		handleObjects();
+		handleObjects(true);
 	}
 
 	@Override

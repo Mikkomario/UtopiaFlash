@@ -1,8 +1,8 @@
 package flash_timers;
 
-import omega_util.SimpleGameObject;
 import genesis_event.Actor;
 import genesis_event.HandlerRelay;
+import genesis_util.SimpleHandled;
 import genesis_util.StateOperator;
 import genesis_util.StateOperatorListener;
 
@@ -13,7 +13,7 @@ import genesis_util.StateOperatorListener;
  * @author Mikko Hilpinen.
  * @since 30.11.2013
  */
-public abstract class AbstractTimer extends SimpleGameObject implements Actor, 
+public abstract class AbstractTimer extends SimpleHandled implements Actor, 
 		StateOperatorListener
 {
 	// ATTRIBUTES	-----------------------------------------------------
